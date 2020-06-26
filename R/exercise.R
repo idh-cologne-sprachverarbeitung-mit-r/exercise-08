@@ -5,24 +5,26 @@ readCorpus <- function(dirname="data", fPattern="*.txt", tokenize=TRUE, scanSep=
 	})
 }
 
+# a)
+doc10 <- readLines("data/F10.txt")
+grep("\\sEUR\\s\\d", doc10)
 
-corpus_s <- readCorpus(tokenize=FALSE)
-corpus_t <- readCorpus(tokenize=TRUE)
-
-# a) 
-grep("(EUR)\\s\\d+",corpus_s[[10]])
-
-# b) 
-length(grep("^An?\\b", corpus_s[[10]], value=TRUE))/length(corpus_s[[10]])
+# b)
+length(grep("(^A\\s|^An\\s)", doc10))/length(doc10)*100
 
 # c)
-length(grep("\\?\\s+$", corpus[[10]], value=TRUE))
+doc10 <- scan(file="data/F10.txt", what="character", quote=NULL)
+grep("\\?", doc10)
 
 # d)
-mean(unlist(lapply(corpus_s, function(x) {length(grep("\\?\\s+$", x))/length(x)})))
+questionMarks <- unlist(lapply(corpus, function(x) {grep("\\?", x)})) 
+numquestionMarks <- length(questionMarks)
+sentences <- unlist(lapply(corpus, function(x) {grep("[.?!]", x)})) 
+numSentences <- length(sentences)
+numquestionMarks/numSentences*100
 
 # e)
-which.max(unlist(lapply(corpus_s, function(x) {length(grep("EUR", x))/length(x)})))
+
 
 # f)
-which(unlist(lapply(corpus, function(x) {sum(grep("(China|Chinese)", x)>0)})) > 0)
+lapply(corpus, function(x) {grep("(China|Beijing|Chinese)", x, value=TRUE)})
