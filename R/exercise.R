@@ -25,4 +25,4 @@ mean(unlist(lapply(corpus_s, function(x) {length(grep("\\?\\s+$", x))/length(x)}
 which.max(unlist(lapply(corpus_s, function(x) {length(grep("EUR", x))/length(x)})))
 
 # f)
-which(unlist(lapply(corpus, function(x) {sum(grep("(China|Chinese)", x)>0)})) > 0)
+which(unlist(lapply(corpus, function(x) {sum(grep("(China|Chinese|Beijing)", x)>0)})) > 0)
